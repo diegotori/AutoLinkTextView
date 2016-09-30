@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
-        Creates an enum resource attribute that maps out to the ordinal values of AutoLinkMode.
+        Creates flag resource attribute that maps out to the ordinal values of AutoLinkMode.
     -->
-    <attr name="autolinklibrary__auto_link_modes" format="enum">
-        <enum name="Hashtag" value="0"/>
-        <enum name="Mention" value="1"/>
-        <enum name="URL" value="2"/>
-        <enum name="Phone" value="3"/>
-        <enum name="Email" value="4"/>
-        <enum name="Custom" value="5"/>
+    <attr name="autolinklibrary__auto_link_modes" format="flag">
+        <flag name="Hashtag" value="0"/>
+        <flag name="Mention" value="1"/>
+        <flag name="URL" value="2"/>
+        <flag name="Phone" value="3"/>
+        <flag name="Email" value="4"/>
+        <flag name="Custom" value="5"/>
     </attr>
     <attr name="autolinklibrary__custom_regex" format="string|reference"/>
     <attr name="autolinklibrary__auto_link_text" format="string|reference"/>
