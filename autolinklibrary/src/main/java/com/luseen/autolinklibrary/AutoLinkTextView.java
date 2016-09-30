@@ -1,6 +1,7 @@
 package com.luseen.autolinklibrary;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.text.Spannable;
@@ -9,6 +10,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -41,11 +44,80 @@ public final class AutoLinkTextView extends TextView {
     private int defaultSelectedColor = Color.LTGRAY;
 
     public AutoLinkTextView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AutoLinkTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public AutoLinkTextView(Context context, AttributeSet attrs, int defStyleAttr){
+        super(context, attrs, defStyleAttr);
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.AutoLinkTextView,
+                defStyleAttr, 0);
+
+        final int autoLinkModeFlags =
+                ta.getInt(R.styleable.AutoLinkTextView_autolinklibrary__auto_link_modes,
+                        AutoLinkMode.MODE_HASHTAG.getBitFlag());
+        final List<AutoLinkMode> selectedAutoLinkModes =
+                processSelectedXmlAutoLinkModes(autoLinkModeFlags);
+        if(!selectedAutoLinkModes.isEmpty()){
+            addAutoLinkMode(selectedAutoLinkModes
+                    .toArray(new AutoLinkMode[selectedAutoLinkModes.size()]));
+        }
+        final String resCustomRegex =
+                ta.getString(R.styleable.AutoLinkTextView_autolinklibrary__custom_regex);
+        if(resCustomRegex != null && resCustomRegex.length() > 0){
+            setCustomRegex(resCustomRegex);
+        }
+
+        //Extract colors for each modes
+        final int resCustomModeColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__custom_mode_color,
+                        DEFAULT_COLOR);
+        setCustomModeColor(resCustomModeColor);
+        final int resHashtagModeColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__hashtag_mode_color,
+                        DEFAULT_COLOR);
+        setHashtagModeColor(resHashtagModeColor);
+        final int resMentionModeColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__mention_mode_color,
+                        DEFAULT_COLOR);
+        setMentionModeColor(resMentionModeColor);
+        final int resUrlModeColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__url_mode_color,
+                        DEFAULT_COLOR);
+        setUrlModeColor(resUrlModeColor);
+        final int resPhoneModeColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__phone_mode_color,
+                        DEFAULT_COLOR);
+        setPhoneModeColor(resPhoneModeColor);
+        final int resEmailModeColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__email_mode_color,
+                        DEFAULT_COLOR);
+        setEmailModeColor(resEmailModeColor);
+        final int resSelectedStateColor =
+                ta.getColor(R.styleable.AutoLinkTextView_autolinklibrary__selected_state_color,
+                        DEFAULT_COLOR);
+        setSelectedStateColor(resSelectedStateColor);
+        final String resAutoLinkText = ta.getString(R.styleable.AutoLinkTextView_android_text);
+        if(resAutoLinkText != null && resAutoLinkText.length() > 0){
+            setAutoLinkText(resAutoLinkText);
+        }
+        ta.recycle();
+    }
+
+    private List<AutoLinkMode> processSelectedXmlAutoLinkModes(final int autoLinkModeValues){
+        EnumSet<AutoLinkMode> autoLinkModes = EnumSet.noneOf(AutoLinkMode.class);
+        final List<AutoLinkMode> result = new ArrayList<>();
+        for(AutoLinkMode autoLinkMode : autoLinkModes){
+            final int bitFlag = autoLinkMode.getBitFlag();
+            if((autoLinkModeValues & bitFlag) == bitFlag){
+                result.add(autoLinkMode);
+            }
+        }
+        return result;
     }
 
     @Override
