@@ -5,22 +5,27 @@ package com.luseen.autolinklibrary;
  */
 
 public enum AutoLinkMode {
-
-    MODE_HASHTAG("Hashtag"),
-    MODE_MENTION("Mention"),
-    MODE_URL("Url"),
-    MODE_PHONE("Phone"),
-    MODE_EMAIL("Email"),
-    MODE_CUSTOM("Custom");
+    MODE_HASHTAG("Hashtag", 1), //1
+    MODE_MENTION("Mention", 1<<1), //2
+    MODE_URL("Url", 1<<2), //4
+    MODE_PHONE("Phone", 1<<3), //8
+    MODE_EMAIL("Email", 1<<4), //16
+    MODE_CUSTOM("Custom", 1<<5); //32
 
     private String name;
+    private int bitFlag;
 
-    AutoLinkMode(String name) {
+    AutoLinkMode(String name, final int bitFlag) {
         this.name = name;
+        this.bitFlag = bitFlag;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public int getBitFlag(){
+        return bitFlag;
     }
 }
