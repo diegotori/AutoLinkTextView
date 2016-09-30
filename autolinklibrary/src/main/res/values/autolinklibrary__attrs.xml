@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
-        Creates flag resource attribute that maps out to the ordinal values of AutoLinkMode.
+        Creates flag resource attribute that maps out to the bit-flag values of AutoLinkMode.
     -->
     <attr name="autolinklibrary__auto_link_modes" format="flag">
-        <flag name="Hashtag" value="0"/>
-        <flag name="Mention" value="1"/>
-        <flag name="URL" value="2"/>
-        <flag name="Phone" value="3"/>
-        <flag name="Email" value="4"/>
-        <flag name="Custom" value="5"/>
+        <flag name="Hashtag" value="1"/>
+        <flag name="Mention" value="2"/>
+        <flag name="URL" value="4"/>
+        <flag name="Phone" value="8"/>
+        <flag name="Email" value="16"/>
+        <flag name="Custom" value="32"/>
     </attr>
-    <attr name="autolinklibrary__custom_regex" format="string|reference"/>
-    <attr name="autolinklibrary__auto_link_text" format="string|reference"/>
-    <attr name="autolinklibrary__hashtag_mode_color" format="color|reference"/>
-    <attr name="autolinklibrary__mention_mode_color" format="color|reference"/>
-    <attr name="autolinklibrary__url_mode_color" format="color|reference"/>
-    <attr name="autolinklibrary__phone_mode_color" format="color|reference"/>
-    <attr name="autolinklibrary__email_mode_color" format="color|reference"/>
-    <attr name="autolinklibrary__custom_mode_color" format="color|reference"/>
-    <attr name="autolinklibrary__selected_state_color" format="color|reference"/>
+    <attr name="autolinklibrary__custom_regex" format="string"/>
+    <attr name="autolinklibrary__hashtag_mode_color" format="color"/>
+    <attr name="autolinklibrary__mention_mode_color" format="color"/>
+    <attr name="autolinklibrary__url_mode_color" format="color"/>
+    <attr name="autolinklibrary__phone_mode_color" format="color"/>
+    <attr name="autolinklibrary__email_mode_color" format="color"/>
+    <attr name="autolinklibrary__custom_mode_color" format="color"/>
+    <attr name="autolinklibrary__selected_state_color" format="color"/>
 
     <!--
         Creates the Styleable attribute that will seek out our custom resource attributes from the
@@ -27,7 +26,7 @@
     -->
     <declare-styleable name="AutoLinkTextView">
         <attr name="autolinklibrary__auto_link_modes"/>
-        <attr name="autolinklibrary__auto_link_text"/>
+        <attr name="autolinklibrary__custom_regex"/>
         <attr name="autolinklibrary__hashtag_mode_color"/>
         <attr name="autolinklibrary__mention_mode_color"/>
         <attr name="autolinklibrary__url_mode_color"/>
@@ -35,5 +34,6 @@
         <attr name="autolinklibrary__email_mode_color"/>
         <attr name="autolinklibrary__custom_mode_color"/>
         <attr name="autolinklibrary__selected_state_color"/>
+        <attr name="android:text"/>
     </declare-styleable>
 </resources>
