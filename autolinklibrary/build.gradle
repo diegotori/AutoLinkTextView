@@ -19,11 +19,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            systemProperty "robolectric.logging.enabled", true
+            systemProperty "robolectric.logging", "stdout"
+            testLogging {
+                exceptionFormat "full"
+            }
+            // listen to events in the test execution lifecycle
+            beforeTest { descriptor ->
+                println "${descriptor.className} > Starting test: $descriptor.name."
+            }
+            jvmArgs '-XX:MaxPermSize=1024m',
+                    '-noverify' // Or any other gradle option.
+            afterTest { descriptor, result ->
+                println "${descriptor.className} > Finished executing test ${descriptor.name} " +
+                        "with result: ${result.resultType}."
+            }
+        }
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-annotations:24.2.1'
+    compile "com.android.support:support-annotations:$support_library_version"
+    testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:$robolectric_version"
+    testCompile "com.squareup.assertj:assertj-android:$assertj_version"
+    testCompile "org.mockito:mockito-core:${mockito_version}"
+    testCompile "com.android.support.test:rules:${support_test_version}"
 }
 
 publish {
