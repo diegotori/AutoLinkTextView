@@ -3,7 +3,7 @@
     <!--
         Creates flag resource attribute that maps out to the bit-flag values of AutoLinkMode.
     -->
-    <attr name="autolinklibrary__auto_link_modes" format="flag">
+    <attr name="autolinklibrary__auto_link_modes">
         <flag name="Hashtag" value="1"/>
         <flag name="Mention" value="2"/>
         <flag name="URL" value="4"/>
