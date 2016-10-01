@@ -4,7 +4,6 @@ import android.support.test.filters.SmallTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by diegotori on 10/1/16.
  */
-@RunWith(RobolectricTestRunner.class)
+@RunWith(LibraryProjectTestRunner.class)
 @Config(manifest = Config.NONE, constants = BuildConfig.class)
 @SmallTest
 public class UtilsTest {
